@@ -42,3 +42,13 @@ function addProducts(donnees){
             `
   });
 }
+
+
+const totalQuantity = document.querySelector("#totalQuantity")        //definition quantitié totale panier
+const total2 = cart.reduce((total2, canap) => total2 + canap.quantity, 0)
+totalQuantity.textContent = total2
+
+
+const totalPrice = document.querySelector("#totalPrice")              //definition prix totale panier
+const total = cart.reduce((total, canap) => total + canap.price * canap.quantity, 0)
+totalPrice.textContent = total

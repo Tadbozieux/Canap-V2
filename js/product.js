@@ -10,40 +10,25 @@ fetch(`http://localhost:3000/api/products/${id}`)   //https://www.youtube.com/wa
         // console.log(json)
         return addInformations(json)
     })  
-function addInformations(kanapé){               //creation variable des composents produit
-    const imageUrl = kanapé.imageUrl
-    // console.log(imageUrl)
-    const name= kanapé.name
-    const price = kanapé.price
-    const altTxt= kanapé.altTxt
-    const colors = kanapé.colors
-    const description = kanapé.description
+function addInformations(kanape){               //creation variable des composents produit
+    document.querySelector(
+        ".item__img"
+      ).innerHTML = `<img src="${kanape.imageUrl}" alt="${kanape.altTxt}"></img>`;
+      document.getElementById("title").textContent = kanape.name;
+      document.getElementById("price").textContent = kanape.price;
+      document.getElementById("description").textContent = kanape.description;
+      kanape.colors.forEach(
+        (color) =>
+          (document.getElementById(
+            "colors"
+          ).innerHTML += `<option value="${color}">${color}</option>`)
+      );
     
-    let image = document.createElement("img")
-    image.src = imageUrl
-    image.alt = altTxt
-    let parentImg = document.querySelector (".item__img")
-    parentImg.appendChild (image)
-    nomKanapé = document.querySelector ("#title .h1")
-    title.textContent = name
-    prixKanapé = document.getElementById ("price")
-    prixKanapé.textContent = price
-    descriptionKanapé = document.getElementById ("description")
-    descriptionKanapé.textContent = description
-    const select = document.getElementById ("colors")
-    colors.forEach((color) => {                                 //Pour chaque coueleur selon ID
-        const option = document.createElement("option")         //créer une option
-        option.value = color                                    // dont les choix sonrt les couleurs renseignées
-        option.textContent = color
-        // console.log(color)
-        select.appendChild(option)
-    })
-    const validationPanier = document.querySelector("#addToCart")
-    validationPanier.addEventListener("click", (e) => {
-        e.preventDefault();
+      document.querySelector("#addToCart").addEventListener("click", (e) => {
+         e.preventDefault();
     
-        const color = document.getElementById("colors").value
-        const quantity = Number(document.getElementById("quantity").value)
+        const color = document.getElementById("colors").value;
+        const quantity = Number(document.getElementById("quantity").value);
         
         
         if (!color  || color === "" || !quantity || quantity < 0 || quantity > 100){
@@ -62,9 +47,9 @@ function addInformations(kanapé){               //creation variable des compose
                 quantity: quantity,
                 price: price,
                 description: description,
-                name: name,
-                imageUrl: imageUrl,
-                altTxt: altTxt
+                name: kanape.name,
+                imageUrl: kanape.imageUrl,
+                altTxt: kanape.altTxt
             }
             console.log(`Préparation de ${item.name}:`, item)
             addProductLocalStorage(key)
@@ -109,22 +94,11 @@ function addInformations(kanapé){               //creation variable des compose
                 function confirmationAdditionPannier (){
                     alert (`${item.quantity} ${item.name} placé(s) dans votre panier`, item)
                 }
-
-
-
-
-            }         //document.location.href = "cart.html"
+            }         document.location.href = "cart.html"
         }
 
 
     })
 
 } 
-     
-// controle si local storage vide 
-// si oui rajouter item
-// si non controler Id     
-//     si nouveau id le rajouter
-//     sinon controler couleur 
-// si nouvelle couleur le rajouter
-// sinon cumuler noyuveau nombre avec ancien
+ 
