@@ -45,8 +45,8 @@ function addInformations(kanape){               //creation variable des composen
                 id: id,
                 color: color,
                 quantity: quantity,
-                price: price,
-                description: description,
+                price: kanape.price,
+                description: kanape.description,
                 name: kanape.name,
                 imageUrl: kanape.imageUrl,
                 altTxt: kanape.altTxt
