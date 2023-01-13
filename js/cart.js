@@ -104,61 +104,136 @@ function addProducts(donnees){
 
 const ValidationFormulaire = document.querySelector(".cart__order__form")
 ValidationFormulaire.addEventListener("submit", function(e){
+  e.preventDefault()
+})
   
   
-
-let erreur;
-
-let inputPrenom = document.querySelector('#firstName');
-const prenomRgex = /^(?![\s.]+$)[A-zÀ-ú\s\-]{1,25}$/
+let inputPrenom = document.querySelector('#firstName'); //declaration emplacement input
+inputPrenom.addEventListener('change', function() {   // ecoute de l'input
+  const prenomRgex = /^(?![\s.]+$)[A-zÀ-ú\s\-']{1,25}$/    // caracteres limitation par Regex
+  let firstNameErrorMsg = document.getElementById("firstNameErrorMsg")  //
+  let controlePrenom = prenomRgex.test(inputPrenom.value);
+  if (controlePrenom) {           // si test regex OK =>
+      firstNameErrorMsg.innerText = '';  // pas de message d'erreur
+      errorFormulairePrenom = false;
+  } 
+  else {   // Si test Regex negatif  on stop l'envoi formulaire et message d'erreur apparait sous champs problematique
+      firstNameErrorMsg.innerText = 'Veuillez indiquer un Prenom, Lettres uniquement !.';
+      errorFormulairePrenom = true;
+      firstNameErrorMsg.style.color = "red"
+      firstNameErrorMsg.style.fontSize = "x-large"
+  }
+});
 
 let inputNom = document.querySelector('#lastName');
-const nomRgex= /^(?![\s.]+$)[A-zÀ-ú\s\-]{1,25}$/
+inputNom.addEventListener('change', function() {
+  const nomRgex = /^(?![\s.]+$)[A-zÀ-ú\s\-']{1,25}$/
+  let nomErrorMsg = document.getElementById("lastNameErrorMsg")
+  let controlenom = nomRgex.test(inputNom.value);
+  if (controlenom) {
+      nomErrorMsg.innerText = '';
+      errorFormulaireNom = false;
+  } 
+  else {
+      nomErrorMsg.innerText = 'Veuillez indiquer un Nom, Lettres uniquement !.';
+      errorFormulaireNom = true;
+      nomErrorMsg.style.color = "red"
+      nomErrorMsg.style.fontSize = "x-large"
+  }
+});
+
+
+
 
 let inputAdresse = document.querySelector('#address');
-const adresseRgex = /^[0-9]{1,3}(?![\s.]+$)[a-zA-Z\s\-'.]+$/
+inputAdresse.addEventListener('change', function() {
+  const adresseRgex = /^[0-9]{1,3}(?![\s.]+$)[a-zA-Z\s\-'.]+$/
+  let adresseErrorMsg = document.getElementById("addressErrorMsg")
+  let controleadresse = adresseRgex.test(inputAdresse.value);
+  if (controleadresse) {
+    adresseErrorMsg.innerText = '';
+    errorFormulaireadresse = false;
+    
+  } 
+  else {
+    adresseErrorMsg.innerText = 'Veuillez sair un numéro et un nom de voie !.';
+    errorFormulaireadresse = true;
+    adresseErrorMsg.style.color = "red"
+    adresseErrorMsg.style.fontSize = "x-large"
+  }
+});
+
+
 
 let inputVille = document.querySelector('#city');
-const VilleRgex = /^(?![\s.]+$)[A-zÀ-ú\s\-]{1,25}$/
+inputVille.addEventListener('change', function() {
+const villeRgex = /^(?![\s.]+$)[A-zÀ-ú\s\-]{1,25}$/
+let villeErrorMsg = document.getElementById("cityErrorMsg")
+  let controleVille = villeRgex.test(inputVille.value);
+  if (controleVille) {
+    villeErrorMsg.innerText = '';
+    errorFormulaireVille = false;
+  } 
+  else {
+    villeErrorMsg.innerText = 'Veuillez sair votre localité !';
+    errorFormulaireVille = true;
+    villeErrorMsg.style.color = "red"
+    villeErrorMsg.style.fontSize = "x-large"
+  }
+})
+
 
 let inputEmail = document.querySelector('#email');
-// const emailRgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$;
-
-if (!inputPrenom.value){
-  erreur = "Veuillez rentrer votre prénom !";
-}
-
-if (!inputNom.value){
-  erreur = "Veuillez rentrer votre Nom de Famille !";
-}
-
-if (!inputAdresse.value){
-  erreur = "Veuillez rentrer votre Adresse Postale !";
-}
-
-if (!inputVille.value){
-  erreur = "Veuillez rentrer votre Ville !";
-}
-
-if (!inputEmail.value){
-  erreur = "Veuillez rentrer votre Email !";
-}
-
-if (erreur){
-  e.preventDefault();
-  document.getElementById("firstNameErrorMsg").innerHTML = erreur
-}else{
-  alert("Formulaire envoyé !")
-} 
-
-
-
-
-
-
-
-
-
-
-
+inputEmail.addEventListener('change', function() {
+const emailRgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+let emailErrorMsg = document.getElementById("emailErrorMsg")
+  let controleEmail = emailRgex.test(inputEmail.value);
+  if (controleEmail) {
+    emailErrorMsg.innerText = '';
+    errorFormulaireEmail = false;
+  } 
+  else {
+    emailErrorMsg.innerText = 'Veuillez sair votre email (doit contenir "@").';
+    errorFormulaireEmail = true;
+    emailErrorMsg.style.color = "red"
+    emailErrorMsg.style.fontSize = "x-large"
+  }
 })
+
+
+
+
+
+
+
+// if (!inputNom.value){
+//   erreur = "Veuillez rentrer votre Nom de Famille !";
+// }
+
+// if (!inputAdresse.value){
+//   erreur = "Veuillez rentrer votre Adresse Postale !";
+// }
+
+// if (!inputVille.value){
+//   erreur = "Veuillez rentrer votre Ville !";
+// }
+
+// if (!inputEmail.value){
+//   erreur = "Veuillez rentrer votre Email !";
+// }
+
+// if (erreur){
+//   e.preventDefault();
+//   document.getElementById("firstNameErrorMsg").innerHTML = erreur
+// }else{
+//   alert("Formulaire envoyé !")
+// } 
+
+
+
+
+
+
+
+
+
